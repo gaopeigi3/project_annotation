@@ -1,0 +1,124 @@
+# project_annotation
+
+Author:   
+Date: 2026-05-06
+
+
+# project contract
+
+Input
+AnnData (.h5ad)
+
+required obs:
+- sample
+- batch
+
+optional:
+- patient
+- condition
+Output
+obs:
+- celltype
+- celltype_confidence
+- annotation_source
+- annotation_version
+
+uns:
+- celltype_colors
+- annotation_metadata
+Guarantee
+- reproducible
+- deterministic
+- resumable
+- configurable
+
+
+
+
+## Workflow
+raw.h5ad
+ ↓
+[ preprocess ]
+ ↓
+[ slicing / cohort selection ]
+ ↓
+cluster
+ ↓
+markers
+ ↓
+annotation
+## 
+
+
+workflow/scripts/
+  schema/          ← 定义“知识”（静态）
+    celltype.py
+👉 放：
+hierarchical markers
+colors
+hierarchy
+👉 ✔️ 不做计算
+
+  dataset/            ← 定义“数据如何选”
+    cohort.py
+👉 放：
+responder / non
+pre / post
+patient filters
+👉 ✔️ 不读 h5ad
+
+  processing/      ← 定义“怎么处理数据”
+    slice.py
+    preprocess.py
+    cluster.py
+    markers.py
+
+## 
+
+
+
+
+| slicing 类型 | 正确顺序    | 错误顺序的后果     |
+| ---------- | ------- | ----------- |
+| cell-type  | 先 slice | embedding 错 |
+| condition  | 后 slice | 对比结构丢失      |
+
+
+
+
+
+你前面做的所有设计（schema / cohort / pipeline / env）最后都要落到：
+annotated.h5ad 是什么“协议”（contract）
+结果输出标准 = downstream pipeline 的输入协议
+obs:
+  cell_type
+  leiden
+  condition（dose / responder / individual）
+
+obsm:
+  X_pca
+  X_umap
+
+uns:
+  celltype_colors
+  embedding_scope
+
+
+  
+
+## Run
+
+```bash
+snakemake -j 1
+
+---
+
+## 6️⃣ `.gitignore`
+
+```gitignore
+data/
+results/
+logs/
+__pycache__/
+*.pyc
+
