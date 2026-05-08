@@ -87,7 +87,7 @@ patient filters
 
 
 
-你前面做的所有设计（schema / cohort / pipeline / env）最后都要落到：
+前面做的所有设计（schema / cohort / pipeline / env）最后都要落到：
 annotated.h5ad 是什么“协议”（contract）
 结果输出标准 = downstream pipeline 的输入协议
 obs:
