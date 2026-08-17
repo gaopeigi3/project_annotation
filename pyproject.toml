@@ -6,21 +6,23 @@ build-backend = "setuptools.build_meta"
 name = "scrna-pipeline"
 version = "0.1.0"
 requires-python = ">=3.10"
-
 dependencies = [
-    "scanpy",
     "anndata",
     "harmonypy",
+    "igraph",
+    "leidenalg",
+    "matplotlib",
     "numpy",
     "pandas",
     "pyyaml",
-    "matplotlib",
+    "scanpy",
     "scipy",
 ]
 
 [project.optional-dependencies]
 workflow = ["snakemake>=8"]
-test = ["pytest"]
+api = ["fastapi", "snakemake>=8", "uvicorn[standard]"]
+test = ["httpx", "pytest"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,9 +1,9 @@
 rule integrate:
     input:
-        h5ad=f"results/{config['cohort']['name']}/preprocessed.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/preprocessed.h5ad"
 
     output:
-        h5ad=f"results/{config['cohort']['name']}/integrated.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/integrated.h5ad"
 
     params:
         method=config["params"]["integrate"]["method"],
@@ -11,7 +11,7 @@ rule integrate:
         n_pcs=config["params"]["integrate"]["n_pcs"]
 
     log:
-        f"logs/{config['cohort']['name']}/integrate.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/integrate.log"
 
     conda:
         "../../envs/scanpy.yaml"

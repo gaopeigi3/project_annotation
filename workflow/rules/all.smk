@@ -3,7 +3,7 @@ COHORT = config["cohort"]["name"]
 rule all:
     default_target: True
     input:
-        f"results/{COHORT}/annotated.h5ad",
-        f"results/{COHORT}/cluster_scores.csv",
-        f"results/{COHORT}/plots/umap_celltype.png",
-        f"results/{COHORT}/plots/umap_sample.png"
+        f"{config['paths']['results_root']}/{COHORT}/annotated.h5ad",
+        f"{config['paths']['results_root']}/{COHORT}/cluster_scores.csv",
+        f"{config['paths']['results_root']}/{COHORT}/plots/umap_celltype.png",
+        f"{config['paths']['results_root']}/{COHORT}/plots/umap_sample.png"

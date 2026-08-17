@@ -1,10 +1,10 @@
 rule annotation:
     input:
-        h5ad=f"results/{config['cohort']['name']}/clustered.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/clustered.h5ad"
 
     output:
-        h5ad=f"results/{config['cohort']['name']}/annotated.h5ad",
-        scores=f"results/{config['cohort']['name']}/cluster_scores.csv"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/annotated.h5ad",
+        scores=f"{config['paths']['results_root']}/{config['cohort']['name']}/cluster_scores.csv"
 
     params:
         threshold_main=config["params"]["annotation"]["threshold_main"],
@@ -12,7 +12,7 @@ rule annotation:
         version=config["params"]["annotation"]["version"]
 
     log:
-        f"logs/{config['cohort']['name']}/annotation.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/annotation.log"
 
     conda:
         "../../envs/scanpy.yaml"

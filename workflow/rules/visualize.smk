@@ -1,13 +1,13 @@
 rule visualize:
     input:
-        h5ad=f"results/{config['cohort']['name']}/annotated.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/annotated.h5ad"
 
     output:
-        umap_celltype=f"results/{config['cohort']['name']}/plots/umap_celltype.png",
-        umap_sample=f"results/{config['cohort']['name']}/plots/umap_sample.png"
+        umap_celltype=f"{config['paths']['results_root']}/{config['cohort']['name']}/plots/umap_celltype.png",
+        umap_sample=f"{config['paths']['results_root']}/{config['cohort']['name']}/plots/umap_sample.png"
 
     log:
-        f"logs/{config['cohort']['name']}/visualize.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/visualize.log"
 
     conda:
         "../../envs/scanpy.yaml"

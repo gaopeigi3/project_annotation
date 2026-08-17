@@ -7,17 +7,21 @@ data:
   input_h5ad: "data/raw/input.h5ad"
   # output_h5ad: "data/results/annotated.h5ad"
 
+paths:
+  results_root: "results"
+  logs_root: "logs"
+
 cohort:
   name: "ven_prepost"
   description: "VEN-treated patients, pre/post treatment"
   filters:
     treattime:
       - "pre"
-      - "post"
+      # - "post"
     drugname:
       - "venetoclax"
     response:
-      - "responder"
+      # - "responder"
       - "nonresponder"
 
 params:
@@ -37,8 +41,8 @@ params:
     n_pcs: 50
 
   reduce:
-    n_neighbors: 15
-    resolution: 0.8
+    n_neighbors: 7
+    resolution: 2.0
 
   annotation:
     threshold_main: 0.3

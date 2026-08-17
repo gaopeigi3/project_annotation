@@ -1,0 +1,11 @@
+.git
+.snakemake
+__pycache__
+*.py[cod]
+*.h5ad
+.env
+.pytest_cache
+data
+logs
+results
+runs

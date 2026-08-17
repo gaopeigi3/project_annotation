@@ -1,13 +1,13 @@
 rule qc:
     input:
-        h5ad=f"results/{config['cohort']['name']}/cohort.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/cohort.h5ad"
     output:
-        h5ad=f"results/{config['cohort']['name']}/qc.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/qc.h5ad"
     params:
         min_genes=config["params"]["qc"]["min_genes"],
         max_mt=config["params"]["qc"]["max_mt"]
     log:
-        f"logs/{config['cohort']['name']}/qc.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/qc.log"
     conda:
         "../../envs/scanpy.yaml"
     shell:

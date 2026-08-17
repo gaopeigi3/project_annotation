@@ -6,3 +6,6 @@ data/interim/
 results/
 logs/
 .env
+*.egg-info/
+.snakemake/
+runs/

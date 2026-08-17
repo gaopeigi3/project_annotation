@@ -1,9 +1,9 @@
 rule reduce:
     input:
-        h5ad=f"results/{config['cohort']['name']}/integrated.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/integrated.h5ad"
 
     output:
-        h5ad=f"results/{config['cohort']['name']}/clustered.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/clustered.h5ad"
 
     params:
         n_neighbors=config["params"]["reduce"]["n_neighbors"],
@@ -11,7 +11,7 @@ rule reduce:
         method=config["params"]["integrate"]["method"]
 
     log:
-        f"logs/{config['cohort']['name']}/reduce.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/reduce.log"
 
     conda:
         "../../envs/scanpy.yaml"

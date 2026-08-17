@@ -1,10 +1,10 @@
 rule preprocess:
     input:
-        h5ad=f"results/{config['cohort']['name']}/qc.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/qc.h5ad"
     output:
-        h5ad=f"results/{config['cohort']['name']}/preprocessed.h5ad"
+        h5ad=f"{config['paths']['results_root']}/{config['cohort']['name']}/preprocessed.h5ad"
     log:
-        f"logs/{config['cohort']['name']}/preprocess.log"
+        f"{config['paths']['logs_root']}/{config['cohort']['name']}/preprocess.log"
     conda:
         "../../envs/scanpy.yaml"
     params:
