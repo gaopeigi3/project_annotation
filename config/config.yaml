@@ -19,40 +19,28 @@ cohort:
     response:
       - "responder"
       - "nonresponder"
-      
-embedding:
-  scope: "global"   # global | subset
 
 params:
   qc:
     min_genes: 200
     max_mt: 0.05
-    
+
   preprocess:
     n_hvg: 2000
+    remove_mt: true
+    remove_ribo: true
+    min_genes: 200
+    min_cells: 3
 
+  integrate:
+    method: harmony
+    key: sample
+    n_pcs: 50
 
+  reduce:
+    n_neighbors: 15
+    resolution: 0.8
 
-slicing:
-  structural:   # 改变空间的 slicing（cell-type）
-    enabled: false
-    filters:
-      cell_type:
-        - "HSCLSC"
-        - "MPPCLP"
-
-analysis_subset: 
-  condition:
-    treat: ["pre", "post"]
-    response: ["responder", "nonresponder"]
-
-preprocessing:
-  remove_mt: true
-  remove_ribo: true
-  min_genes: 200
-  min_cells: 3
-
-representation:
-  n_pcs: 50
-  n_neighbors: 15
-  min_dist: 0.5
+  annotation:
+    threshold_main: 0.3
+    threshold_sub: 0.4
