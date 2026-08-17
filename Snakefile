@@ -1,9 +1,10 @@
 configfile: "config/config.yaml"
 
-# 👉 统一 include 规则
 include: "workflow/rules/all.smk"
-include: "workflow/rules/example.smk"
-
-
-include: "workflow/rules/all.smk"
+include: "workflow/rules/cohort.smk"
+include: "workflow/rules/qc.smk"
 include: "workflow/rules/preprocess.smk"
+include: "workflow/rules/integrate.smk"
+include: "workflow/rules/reduce.smk"
+include: "workflow/rules/annotation.smk"
+include: "workflow/rules/visualize.smk"

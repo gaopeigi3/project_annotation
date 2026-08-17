@@ -1,2 +1,0 @@
-# UMAP plot
-# marker table

@@ -1,7 +1,9 @@
+# workflow/scripts/processing/integrate.py
+
 import argparse
 import scanpy as sc
 
-from scrna_pipeline.preprocess import clean_genes, run_preprocess
+from scrna_pipeline.integrate import run_integration
 
 
 def main():
@@ -9,21 +11,17 @@ def main():
 
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--n-hvg", type=int, required=True)
+    parser.add_argument("--method", required=True)
+    parser.add_argument("--key", required=True)
 
     args = parser.parse_args()
 
     adata = sc.read_h5ad(args.input)
 
-    adata = clean_genes(
+    adata = run_integration(
         adata,
-        remove_mt=True,
-        remove_ribo=True,
-    )
-
-    adata = run_preprocess(
-        adata,
-        n_hvg=args.n_hvg,
+        method=args.method,
+        key=args.key,
     )
 
     adata.write(args.output)

@@ -5,10 +5,33 @@ project:
 
 data:
   input_h5ad: "data/raw/input.h5ad"
-  output_h5ad: "results/processed.h5ad"
+  # output_h5ad: "data/results/annotated.h5ad"
 
+cohort:
+  name: "ven_prepost"
+  description: "VEN-treated patients, pre/post treatment"
+  filters:
+    treattime:
+      - "pre"
+      - "post"
+    drugname:
+      - "venetoclax"
+    response:
+      - "responder"
+      - "nonresponder"
+      
 embedding:
   scope: "global"   # global | subset
+
+params:
+  qc:
+    min_genes: 200
+    max_mt: 0.05
+    
+  preprocess:
+    n_hvg: 2000
+
+
 
 slicing:
   structural:   # 改变空间的 slicing（cell-type）

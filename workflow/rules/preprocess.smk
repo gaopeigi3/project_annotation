@@ -1,17 +1,19 @@
 rule preprocess:
     input:
-        h5ad=config["data"]["input_h5ad"]
+        h5ad=f"results/{config['cohort']['name']}/qc.h5ad"
     output:
-        h5ad=config["data"]["output_h5ad"]
+        h5ad=f"results/{config['cohort']['name']}/preprocessed.h5ad"
     log:
         "logs/preprocess.log"
     conda:
         "envs/scanpy.yaml"
+    params:
+        n_hvg=config["params"]["preprocess"]["n_hvg"]
     shell:
         """
-        python workflow/scripts/preprocess.py \
+        python workflow/scripts/processing/preprocess.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
-            --config config/config.yaml \
+            --n-hvg {params.n_hvg} \
             > {log} 2>&1
         """

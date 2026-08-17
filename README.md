@@ -3,6 +3,19 @@
 Author:   
 Date: 2026-05-06
 
+# project infra
+
+Layer 1：scientific calculate
+Scanpy / Python functions
+
+Layer 2：Workflow
+Snakemake
+
+Layer 3：Service interface (request / validation / response)
+FastAPI
+
+Layer 4：Runtime
+Docker
 
 # project contract
 

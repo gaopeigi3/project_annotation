@@ -1,1 +1,0 @@
-# adata = apply_filters(adata, cohort_config)

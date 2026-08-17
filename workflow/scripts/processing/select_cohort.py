@@ -1,7 +1,8 @@
 import argparse
+import json
 import scanpy as sc
 
-from scrna_pipeline.preprocess import clean_genes, run_preprocess
+from scrna_pipeline.cohort import select_cohort
 
 
 def main():
@@ -9,21 +10,17 @@ def main():
 
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--n-hvg", type=int, required=True)
+    parser.add_argument("--filters", required=True)
 
     args = parser.parse_args()
 
+    filters = json.loads(args.filters)
+
     adata = sc.read_h5ad(args.input)
 
-    adata = clean_genes(
+    adata = select_cohort(
         adata,
-        remove_mt=True,
-        remove_ribo=True,
-    )
-
-    adata = run_preprocess(
-        adata,
-        n_hvg=args.n_hvg,
+        filters=filters,
     )
 
     adata.write(args.output)
