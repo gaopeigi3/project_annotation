@@ -4,16 +4,22 @@ rule preprocess:
     output:
         h5ad=f"results/{config['cohort']['name']}/preprocessed.h5ad"
     log:
-        "logs/preprocess.log"
+        f"logs/{config['cohort']['name']}/preprocess.log"
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
     params:
-        n_hvg=config["params"]["preprocess"]["n_hvg"]
+        n_hvg=config["params"]["preprocess"]["n_hvg"],
+        min_cells=config["params"]["preprocess"]["min_cells"],
+        remove_mt="--remove-mt" if config["params"]["preprocess"]["remove_mt"] else "--no-remove-mt",
+        remove_ribo="--remove-ribo" if config["params"]["preprocess"]["remove_ribo"] else "--no-remove-ribo"
     shell:
         """
-        python workflow/scripts/processing/preprocess.py \
+        PYTHONPATH=src:. python workflow/scripts/processing/preprocess.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --n-hvg {params.n_hvg} \
+            --min-cells {params.min_cells} \
+            {params.remove_mt} \
+            {params.remove_ribo} \
             > {log} 2>&1
         """

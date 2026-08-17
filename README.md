@@ -1,81 +1,47 @@
 # project_annotation
 
-Author:   
-Date: 2026-05-06
+A two-layer, reproducible single-cell annotation pipeline.
 
-# project infra
+## Infrastructure
 
-Layer 1：scientific calculate
-Scanpy / Python functions
+- Layer 1 — scientific calculation: Scanpy and testable Python functions in `src/scrna_pipeline/`.
+- Layer 2 — workflow: Snakemake rules in `workflow/`.
 
-Layer 2：Workflow
-Snakemake
+Service and container layers are intentionally out of scope.
 
-Layer 3：Service interface (request / validation / response)
-FastAPI
+## Data contract
 
-Layer 4：Runtime
-Docker
+Input is an AnnData `.h5ad` file with required `obs` columns `sample` and `batch`.
+Optional cohort columns are configured in `config/config.yaml`.
 
-# project contract
+The annotated output contains:
 
-Input
-AnnData (.h5ad)
-
-required obs:
-- sample
-- batch
-
-optional:
-- patient
-- condition
-Output
-obs:
-- celltype
-- celltype_confidence
-- annotation_source
-- annotation_version
-
-uns:
-- celltype_colors
-- annotation_metadata
-Guarantee
-- reproducible
-- deterministic
-- resumable
-- configurable
-
-
-
+- `obs`: `celltype`, `celltype_confidence`, `annotation_source`, and `annotation_version`.
+- `uns`: `celltype_colors` and `annotation_metadata`.
 
 ## Workflow
-raw.h5ad
- ↓
-[ preprocess ]
- ↓
-[ slicing / cohort selection ]
- ↓
-cluster
- ↓
-markers
- ↓
-annotation
-## 
 
+`input.h5ad → cohort → QC → preprocess → integrate → reduce/cluster → annotate → visualize`
 
-## Run
+## Setup and run
 
 ```bash
-snakemake -j 1
+python -m pip install -e '.[workflow]'
+snakemake --software-deployment-method conda --cores 1
+```
 
----
+Place the input at `data/raw/input.h5ad`, or change `data.input_h5ad` in
+`config/config.yaml`. Adjust cohort filters and calculation parameters there.
 
-## 6️⃣ `.gitignore`
+Validate the DAG without running jobs:
 
-```gitignore
-data/
-results/
-logs/
-__pycache__/
-*.pyc
+```bash
+snakemake --dry-run --software-deployment-method conda --cores 1
+```
 
+Run unit tests with:
+
+```bash
+python -m pip install -e '.[test]'
+pytest
+```

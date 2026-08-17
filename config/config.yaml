@@ -29,7 +29,6 @@ params:
     n_hvg: 2000
     remove_mt: true
     remove_ribo: true
-    min_genes: 200
     min_cells: 3
 
   integrate:
@@ -44,3 +43,4 @@ params:
   annotation:
     threshold_main: 0.3
     threshold_sub: 0.4
+    version: "0.1.0"

@@ -1,3 +1,6 @@
+import scanpy as sc
+
+
 def run_reduction(
     adata,
     n_neighbors=15,

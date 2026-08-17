@@ -8,21 +8,23 @@ rule annotation:
 
     params:
         threshold_main=config["params"]["annotation"]["threshold_main"],
-        threshold_sub=config["params"]["annotation"]["threshold_sub"]
+        threshold_sub=config["params"]["annotation"]["threshold_sub"],
+        version=config["params"]["annotation"]["version"]
 
     log:
         f"logs/{config['cohort']['name']}/annotation.log"
 
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
 
     shell:
         """
-        python workflow/scripts/analysis/annotation.py \
+        PYTHONPATH=src:. python workflow/scripts/analysis/annotation.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --scores {output.scores} \
             --threshold-main {params.threshold_main} \
             --threshold-sub {params.threshold_sub} \
+            --version {params.version} \
             > {log} 2>&1
         """

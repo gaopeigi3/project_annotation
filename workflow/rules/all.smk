@@ -1,6 +1,7 @@
 COHORT = config["cohort"]["name"]
 
 rule all:
+    default_target: True
     input:
         f"results/{COHORT}/annotated.h5ad",
         f"results/{COHORT}/cluster_scores.csv",

@@ -9,9 +9,9 @@ def select_cohort(adata, filters):
             raise KeyError(
                 f"Column '{column}' not found in adata.obs"
             )
-        if adata.n_obs == 0:
-            raise ValueError("Cohort selection returned 0 cells.")
-
         mask &= adata.obs[column].isin(allowed_values)
 
-    return adata[mask].copy()
+    selected = adata[mask].copy()
+    if selected.n_obs == 0:
+        raise ValueError("Cohort selection returned 0 cells.")
+    return selected

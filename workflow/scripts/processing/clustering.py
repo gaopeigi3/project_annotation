@@ -1,19 +1,5 @@
-# leiden / resolution
+"""Compatibility wrapper for clustering calculations."""
 
-def run_harmony(
-    adata,
-    batch_key="patient",
-    basis="X_scVI"
-):
-    sce.pp.harmony_integrate(
-        adata,
-        key=batch_key,
-        basis=basis
-    )
+from scrna_pipeline.reduce import run_reduction
 
-    return adata
-
-
-
-    sc.pp.neighbors(adata_filter, use_rep=f'X_harmony', n_neighbors=n_neighbors)
-    sc.tl.leiden(adata_filter, resolution=resolution)
+__all__ = ["run_reduction"]

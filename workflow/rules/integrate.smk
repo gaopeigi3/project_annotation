@@ -7,20 +7,22 @@ rule integrate:
 
     params:
         method=config["params"]["integrate"]["method"],
-        key=config["params"]["integrate"]["key"]
+        key=config["params"]["integrate"]["key"],
+        n_pcs=config["params"]["integrate"]["n_pcs"]
 
     log:
         f"logs/{config['cohort']['name']}/integrate.log"
 
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
 
     shell:
         """
-        python workflow/scripts/processing/integrate.py \
+        PYTHONPATH=src:. python workflow/scripts/processing/integrate.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --method {params.method} \
             --key {params.key} \
+            --n-pcs {params.n_pcs} \
             > {log} 2>&1
         """

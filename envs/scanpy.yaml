@@ -1,0 +1,16 @@
+name: project-annotation-scanpy
+channels:
+  - conda-forge
+  - bioconda
+channel_priority: strict
+dependencies:
+  - python=3.10
+  - scanpy
+  - anndata
+  - harmonypy
+  - python-igraph
+  - leidenalg
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy

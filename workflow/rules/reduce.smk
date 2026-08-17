@@ -14,11 +14,11 @@ rule reduce:
         f"logs/{config['cohort']['name']}/reduce.log"
 
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
 
     shell:
         """
-        python workflow/scripts/processing/reduce.py \
+        PYTHONPATH=src:. python workflow/scripts/processing/reduce.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --n-neighbors {params.n_neighbors} \

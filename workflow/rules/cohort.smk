@@ -8,10 +8,10 @@ rule cohort:
     log:
         f"logs/{config['cohort']['name']}/cohort.log"
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
     shell:
         """
-        python workflow/scripts/processing/select_cohort.py \
+        PYTHONPATH=src:. python workflow/scripts/processing/select_cohort.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --filters '{params.filters}' \

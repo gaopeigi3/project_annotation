@@ -13,6 +13,7 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--method", required=True)
     parser.add_argument("--key", required=True)
+    parser.add_argument("--n-pcs", type=int, required=True)
 
     args = parser.parse_args()
 
@@ -22,6 +23,7 @@ def main():
         adata,
         method=args.method,
         key=args.key,
+        n_pcs=args.n_pcs,
     )
 
     adata.write(args.output)

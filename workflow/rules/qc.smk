@@ -7,12 +7,12 @@ rule qc:
         min_genes=config["params"]["qc"]["min_genes"],
         max_mt=config["params"]["qc"]["max_mt"]
     log:
-        "logs/qc.log"
+        f"logs/{config['cohort']['name']}/qc.log"
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
     shell:
         """
-        python workflow/scripts/processing/qc.py \
+        PYTHONPATH=src:. python workflow/scripts/processing/qc.py \
             --input {input.h5ad} \
             --output {output.h5ad} \
             --min-genes {params.min_genes} \

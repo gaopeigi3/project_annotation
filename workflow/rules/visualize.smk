@@ -10,11 +10,11 @@ rule visualize:
         f"logs/{config['cohort']['name']}/visualize.log"
 
     conda:
-        "envs/scanpy.yaml"
+        "../../envs/scanpy.yaml"
 
     shell:
         """
-        python workflow/scripts/visualization/visualize.py \
+        PYTHONPATH=src:. python workflow/scripts/analysis/visualize.py \
             --input {input.h5ad} \
             --umap-celltype {output.umap_celltype} \
             --umap-sample {output.umap_sample} \

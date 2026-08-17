@@ -48,7 +48,9 @@ def clean_genes(
 
     return adata[:, keep].copy()
 
-def run_preprocess(adata, n_hvg=2000):
+def run_preprocess(adata, n_hvg=2000, min_cells=3):
+
+    sc.pp.filter_genes(adata, min_cells=min_cells)
 
     # 🔥 1️⃣ 保存 counts（工程关键）
     adata.layers["counts"] = adata.X.copy()
@@ -61,6 +63,6 @@ def run_preprocess(adata, n_hvg=2000):
     adata.raw = adata.copy()
 
     # HVG
-    sc.pp.highly_variable_genes(adata, n_top_genes=n_hvg)
+    sc.pp.highly_variable_genes(adata, n_top_genes=min(n_hvg, adata.n_vars))
 
     return adata

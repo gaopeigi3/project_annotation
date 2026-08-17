@@ -10,6 +10,9 @@ def main():
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--n-hvg", type=int, required=True)
+    parser.add_argument("--min-cells", type=int, required=True)
+    parser.add_argument("--remove-mt", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--remove-ribo", action=argparse.BooleanOptionalAction, default=True)
 
     args = parser.parse_args()
 
@@ -17,13 +20,14 @@ def main():
 
     adata = clean_genes(
         adata,
-        remove_mt=True,
-        remove_ribo=True,
+        remove_mt=args.remove_mt,
+        remove_ribo=args.remove_ribo,
     )
 
     adata = run_preprocess(
         adata,
         n_hvg=args.n_hvg,
+        min_cells=args.min_cells,
     )
 
     adata.write(args.output)

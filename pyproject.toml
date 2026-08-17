@@ -14,7 +14,13 @@ dependencies = [
     "numpy",
     "pandas",
     "pyyaml",
+    "matplotlib",
+    "scipy",
 ]
+
+[project.optional-dependencies]
+workflow = ["snakemake>=8"]
+test = ["pytest"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
